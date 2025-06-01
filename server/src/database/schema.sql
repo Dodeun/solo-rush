@@ -1,1 +1,10 @@
--- pas rempli, mais facile à remplir grâce à l'onglet dans le fichier backlog
+DROP DATABASE IF EXISTS project;
+
+CREATE DATABASE project;
+
+USE project;
+
+CREATE TABLE exemple (
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    message VARCHAR(100) NOT NULL
+);
