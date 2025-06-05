@@ -10,6 +10,7 @@ import {
     findAllTierLists,
     findTierListById,
     insertTierList,
+    updateTierList,
 } from "../models/tierLists.model";
 
 export const getAllTierLists: RequestHandler<undefined, TierList[]> = async (
@@ -65,7 +66,6 @@ export const createTierList: RequestHandler<
     NewTierList,
     CompleteTierList | { error: string }
 > = async (req, res, next) => {
-    console.log(req.body);
     const { title, listItems } = req.body;
 
     try {
@@ -110,6 +110,39 @@ export const removeTierListById: RequestHandler<
             return;
         }
         res.sendStatus(204);
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const updateTierListById: RequestHandler = async (req, res, next) => {
+    const parsedId: number = Number.parseInt(req.params.id);
+    const { title, listItems } = req.body;
+
+    try {
+        const updatedTierList: RowTierList[] | null = await updateTierList({
+            tierlist_id: parsedId,
+            title,
+            listItems,
+        });
+
+        if (!updatedTierList) {
+            res.status(404).json({ error: "Tier list not found" });
+            return;
+        }
+
+        const tierList: CompleteTierList = {
+            tierlist_id: updatedTierList[0].tierlist_id,
+            title: updatedTierList[0].title,
+            creation_date: updatedTierList[0].creation_date,
+            listItems: updatedTierList.map((row: RowTierList) => ({
+                listitem_id: row.listitem_id,
+                option_value: row.option_value,
+                tierlist_id: row.tierlist_id,
+            })),
+        };
+
+        res.status(200).json(tierList);
     } catch (err) {
         next(err);
     }

@@ -58,8 +58,6 @@ export async function insertTierList({
         values
     );
 
-    console.log("resultListItems: ", resultListItems);
-
     const [rows] = await database.query<RowTierList[]>(
         `
     SELECT
@@ -85,4 +83,57 @@ export async function deleteTierList(id: number): Promise<number> {
     );
 
     return result.affectedRows;
+}
+
+export async function updateTierList({
+    tierlist_id,
+    title,
+    listItems,
+}): Promise<RowTierList[] | null> {
+    // 1. Update the title
+    await database.query(
+        `UPDATE tierlist SET title = ? WHERE tierlist_id = ?`,
+        [title, tierlist_id]
+    );
+
+    // 2. Delete existing listItems
+    await database.query(`DELETE FROM listitem WHERE tierlist_id = ?`, [
+        tierlist_id,
+    ]);
+
+    // 3. Insert the new listItems
+    if (listItems.length > 0) {
+        const connectingElement = listItems.map(() => "(?, ?)").join(",");
+        const values: (string | number)[] = [];
+
+        for (const item of listItems) {
+            values.push(item.option_value);
+            values.push(tierlist_id);
+        }
+
+        await database.query(
+            `INSERT INTO listitem (option_value, tierlist_id) VALUES ${connectingElement}`,
+            values
+        );
+    }
+
+    // 4. Return the updated list
+    const [rows] = await database.query<RowTierList[]>(
+        `
+        SELECT
+            tl.tierlist_id,
+            tl.title,
+            tl.creation_date,
+            li.listitem_id,
+            li.option_value
+        FROM tierlist AS tl
+        LEFT JOIN listitem AS li ON tl.tierlist_id = li.tierlist_id
+        WHERE tl.tierlist_id = ?
+        `,
+        [tierlist_id]
+    );
+
+    if (rows.length === 0) return null;
+
+    return rows;
 }

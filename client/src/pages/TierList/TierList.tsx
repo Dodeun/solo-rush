@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import styles from "./TierList.module.css";
 import { useAppContext } from "../../context/AppContext";
 import { useEffect, useState } from "react";
@@ -21,6 +21,18 @@ function TierList() {
         }
     };
 
+    const updateTierList = async () => {
+        try {
+            const response = await neonrank.put(
+                `/tierlists/${tierListId}`,
+                tierList
+            );
+            console.log(response);
+        } catch (err) {
+            console.error("Error posting tier list: ", err);
+        }
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setOptionValue(e.target.value);
     };
@@ -31,9 +43,17 @@ function TierList() {
 
             return {
                 ...prev,
-                listItems: [...prev.listItems, { option_value: optionValue }],
+                listItems: [
+                    ...prev.listItems,
+                    {
+                        option_value: optionValue,
+                        listitem_id: Date.now(),
+                        tierlist_id: prev.tierlist_id,
+                    },
+                ],
             };
         });
+        setOptionValue("");
     };
 
     const handleDeleteItem = (itemId: number) => {
@@ -49,6 +69,10 @@ function TierList() {
         });
     };
 
+    const handleSave = () => {
+        updateTierList();
+    };
+
     useEffect(() => {
         fetchTierList();
     }, []);
@@ -61,7 +85,12 @@ function TierList() {
         <div>
             <div>
                 <div>Logo</div>
-                <button>Home</button>
+                <div>
+                    <Link to="/">Home</Link>
+                    <button type="button" onClick={handleSave}>
+                        SAVE
+                    </button>
+                </div>
             </div>
             {tierList ? (
                 <div>
@@ -84,10 +113,19 @@ function TierList() {
                         })}
                     </ol>
                     <div>
-                        <input type="text" onChange={handleChange} />
+                        <input
+                            type="text"
+                            placeholder="40 characters maximum"
+                            value={optionValue}
+                            onChange={handleChange}
+                        />
                         <button
                             type="button"
-                            onClick={() => optionValue && handleAddItem()}
+                            onClick={() =>
+                                optionValue &&
+                                optionValue.length <= 40 &&
+                                handleAddItem()
+                            }
                         >
                             ADD
                         </button>
