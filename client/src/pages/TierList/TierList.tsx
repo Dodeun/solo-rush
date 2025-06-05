@@ -27,7 +27,6 @@ function TierList() {
                 `/tierlists/${tierListId}`,
                 tierList
             );
-            console.log(response);
         } catch (err) {
             console.error("Error posting tier list: ", err);
         }
@@ -57,6 +56,7 @@ function TierList() {
     };
 
     const handleDeleteItem = (itemId: number) => {
+        if (tierList.listItems.length <= 1) return;
         setTierList((prev) => {
             if (!prev) return prev;
 
@@ -76,10 +76,6 @@ function TierList() {
     useEffect(() => {
         fetchTierList();
     }, []);
-
-    useEffect(() => {
-        console.log(tierList);
-    }, [tierList]);
 
     return (
         <div>
