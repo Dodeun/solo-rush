@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import exempleRouter from "./routes/exemple.routes.ts";
+import tierListsRouter from "./routes/tierLists.routes.ts";
 import { logErrors } from "./middlewares/logErrors.ts";
 
 const app = express();
@@ -16,7 +16,7 @@ if (process.env.CLIENT_URL != null) {
 
 app.use(express.json());
 
-app.use("/api/exemple", exempleRouter);
+app.use("/api/tierlists", tierListsRouter);
 
 // Mount the logErrors middleware globally
 app.use(logErrors);
