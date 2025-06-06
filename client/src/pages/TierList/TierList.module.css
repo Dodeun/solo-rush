@@ -188,7 +188,7 @@
         0 0 3px var(--neon-color-2-dimed), 0 0 6px var(--neon-color-2-dimed),
         inset 0 0 6px var(--neon-color-2-dimed);
     border-radius: 8px;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
     background-color: var(--bg-dark-transparent);
 }
 
@@ -207,13 +207,14 @@ ol {
 
 .option {
     color: var(--neon-color-1);
-    padding: 1rem;
+    padding: 0.8rem 1rem;
     display: flex;
+    gap: 4px;
     justify-content: space-between;
     align-items: center;
     border: 2px solid var(--neon-color-1);
     border-radius: 8px;
-    background-color: var(--bg-dark-transparent);
+    background-color: var(--bg-dark);
 }
 
 .option:hover {
@@ -223,7 +224,6 @@ ol {
 .optionValue {
     font-family: var(--ff-orbitron);
     font-size: 1.4rem;
-    word-break: break-all;
 }
 
 .option:hover .optionValue {
@@ -239,9 +239,10 @@ ol {
     box-shadow: 0 0 1px var(--neon-color-1), 0 0 2px var(--neon-color-1),
         0 0 3px var(--neon-color-2-dimed), 0 0 6px var(--neon-color-2-dimed),
         inset 0 0 6px var(--neon-color-2-dimed);
+    border-radius: 8px;
 }
 
-.buttonDel:hover {
+.option:hover .buttonDel {
     animation: box-glow 1.5s infinite alternate;
 }
 
@@ -256,16 +257,19 @@ ol {
 }
 
 .form {
+    z-index: 2000;
     position: fixed;
     bottom: 16px;
     display: flex;
+    justify-content: center;
     gap: 8px;
     width: 92%;
     max-width: 1080px;
 }
 
 .input {
-    width: 100%;
+    font-family: var(--ff-orbitron);
+    width: 40ch;
     color: var(--neon-color-1);
     background-color: var(--bg-dark);
     padding: 1rem;
@@ -311,4 +315,13 @@ ol {
         0 0 4px var(--neon-color-2), 0 0 6px var(--neon-color-2),
         0 0 8px var(--neon-color-2), 0 0 12px var(--neon-color-2),
         0 0 18px var(--neon-color-2);
+}
+
+@media (max-width: 660px) {
+    .optionValue {
+        font-size: 1rem;
+    }
+    .input {
+        font-size: 0.8rem;
+    }
 }

@@ -123,7 +123,7 @@
         0 0 3px var(--neon-color-2-dimed), 0 0 6px var(--neon-color-2-dimed),
         inset 0 0 6px var(--neon-color-2-dimed);
     border-radius: 8px;
-    background-color: var(--bg-dark-transparent);
+    background-color: var(--bg-dark);
 }
 
 .card:hover {
@@ -164,6 +164,7 @@
     box-shadow: 0 0 1px var(--neon-color-1), 0 0 2px var(--neon-color-1),
         0 0 3px var(--neon-color-2-dimed), 0 0 6px var(--neon-color-2-dimed),
         inset 0 0 6px var(--neon-color-2-dimed);
+    border-radius: 8px;
 }
 
 .buttonDel:hover {
@@ -184,13 +185,15 @@
     position: fixed;
     bottom: 16px;
     display: flex;
+    justify-content: center;
     gap: 8px;
     width: 92%;
     max-width: 1080px;
 }
 
 .input {
-    width: 100%;
+    font-family: var(--ff-orbitron);
+    width: 40ch;
     color: var(--neon-color-1);
     background-color: var(--bg-dark);
     padding: 1rem;
@@ -226,4 +229,13 @@
 .buttonCreate:hover {
     animation: box-glow 1.5s infinite alternate,
         neon-glow 1.5s infinite alternate;
+}
+
+@media (max-width: 660px) {
+    .title {
+        font-size: 1rem;
+    }
+    .input {
+        font-size: 0.8rem;
+    }
 }

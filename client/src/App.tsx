@@ -4,11 +4,13 @@ import { AppProvider } from "./context/AppContext";
 
 function App() {
     return (
-        <AppProvider>
-            <main className={styles.page}>
-                <Outlet />
-            </main>
-        </AppProvider>
+        <>
+            <AppProvider>
+                <main className={styles.page}>
+                    <Outlet />
+                </main>
+            </AppProvider>
+        </>
     );
 }
 

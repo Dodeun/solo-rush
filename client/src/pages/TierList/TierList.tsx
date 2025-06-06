@@ -3,8 +3,9 @@ import styles from "./TierList.module.css";
 import { useAppContext } from "../../context/AppContext";
 import { useEffect, useState } from "react";
 import { neonrank } from "../../api/instance";
-import type { CompleteTierList } from "../../api/types/tierList";
+import type { CompleteTierList, ListItem } from "../../api/types/tierList";
 import { CloseIcon, HomeIcon, SaveIcon } from "../../components/icons/Icons";
+import { Reorder } from "motion/react";
 
 function TierList() {
     const { tierList, setTierList } = useAppContext();
@@ -34,7 +35,7 @@ function TierList() {
         setOptionValue(e.target.value);
     };
 
-    const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleAddItem = () => {
         setTierList((prev) => {
             if (!prev) return prev;
 
@@ -74,7 +75,17 @@ function TierList() {
     const getHue = (index: number) => {
         if (!tierList) return;
         if (tierList.listItems.length === 1) return 0;
-        return (index * 250) / (tierList.listItems.length - 1);
+        return (index * 160) / (tierList.listItems.length - 1);
+    };
+
+    const handleReorder = (itemOrder: ListItem[]) => {
+        setTierList((prev) => {
+            if (!prev) return null;
+            return {
+                ...prev,
+                listItems: itemOrder,
+            };
+        });
     };
 
     useEffect(() => {
@@ -113,13 +124,16 @@ function TierList() {
             {tierList ? (
                 <div className={styles.tierList}>
                     <h1 className={styles.title}>{tierList.title}</h1>
-                    <ol className={styles.itemsList}>
+                    <Reorder.Group
+                        axis="y"
+                        values={tierList.listItems}
+                        onReorder={handleReorder}
+                        className={styles.itemsList}
+                    >
                         {tierList.listItems.map((item, index) => {
                             const hue = getHue(index);
                             const hslColor = `hsl(${hue}, 100%, 50%)`;
                             const textShadows = `
-                                0 0 1px white,
-                                0 0 2px white,
                                 0 0 2px ${hslColor},
                                 0 0 3px ${hslColor},
                                 0 0 4px ${hslColor},
@@ -127,16 +141,15 @@ function TierList() {
                                 0 0 9px ${hslColor}
                             `;
                             const boxShadows = `
-                                0 0 1px white,
-                                0 0 2px white,
                                 0 0 3px ${hslColor},
                                 0 0 6px ${hslColor},
                                 inset 0 0 6px ${hslColor}
                             `;
 
                             return (
-                                <li
+                                <Reorder.Item
                                     key={item.listitem_id}
+                                    value={item}
                                     style={{ boxShadow: boxShadows }}
                                     className={styles.option}
                                 >
@@ -144,6 +157,7 @@ function TierList() {
                                         style={{ textShadow: textShadows }}
                                         className={styles.optionValue}
                                     >
+                                        {`${index} - `}
                                         {item.option_value}
                                     </div>
                                     <button
@@ -158,16 +172,16 @@ function TierList() {
                                             className={styles.closeIcon}
                                         />
                                     </button>
-                                </li>
+                                </Reorder.Item>
                             );
                         })}
-                    </ol>
+                    </Reorder.Group>
                     <form
                         className={styles.form}
                         onSubmit={(e) => {
                             e.preventDefault();
                             if (optionValue && optionValue.length <= 40) {
-                                handleAddItem(e);
+                                handleAddItem();
                             }
                         }}
                     >

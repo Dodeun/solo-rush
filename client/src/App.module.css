@@ -1,4 +1,8 @@
 .page {
     background-color: var(--bg-dark);
+    background-image: url("./assets/imgs/bg2dark.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     min-height: 100vh;
 }
