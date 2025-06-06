@@ -18,17 +18,10 @@
     --neon-color-danger: hsl(0, 100%, 40%);
     --neon-color-danger-dimed: hsl(0, 100%, 40%);
     --neon-color-white: hsl(0, 0%, 69%);
-    --synth-electric-blue: #00ffff;
-    --synth-purple: #8a2be2;
-    --synth-deep-violet: #2d0036;
-    --synth-sunset-orange: #ff6b00;
-    --synth-neon-yellow: #f8ff00;
-    --synth-dark-magenta: #7f00ff;
-    --synth-cyan: #00bfff;
 
     --neon-color-1: white;
     --bg-dark: #020202;
-    --bg-dark-transparent: #020202d0;
+    --bg-dark-transparent: #020202ce;
 }
 
 html {

@@ -123,7 +123,7 @@
         0 0 3px var(--neon-color-2-dimed), 0 0 6px var(--neon-color-2-dimed),
         inset 0 0 6px var(--neon-color-2-dimed);
     border-radius: 8px;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-dark-transparent);
 }
 
 .card:hover {

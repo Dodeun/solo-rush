@@ -190,6 +190,7 @@
     border-radius: 8px;
     margin-bottom: 16px;
     background-color: var(--bg-dark-transparent);
+    overflow: hidden;
 }
 
 .itemsList {
@@ -214,7 +215,7 @@ ol {
     align-items: center;
     border: 2px solid var(--neon-color-1);
     border-radius: 8px;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-dark-transparent);
 }
 
 .option:hover {

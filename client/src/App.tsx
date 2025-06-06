@@ -9,6 +9,9 @@ function App() {
                 <main className={styles.page}>
                     <Outlet />
                 </main>
+                <div className={styles.container}>
+                    <div className={styles.background}></div>
+                </div>
             </AppProvider>
         </>
     );
