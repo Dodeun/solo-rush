@@ -3,6 +3,7 @@ import styles from "./Home.module.css";
 import type { TierList } from "../../api/types/tierList";
 import { neonrank } from "../../api/instance";
 import { Link, useNavigate } from "react-router";
+import { CloseIcon } from "../../components/icons/Icons";
 
 function Home() {
     const [tierLists, setTierLists] = useState<TierList[] | null>(null);
@@ -34,9 +35,19 @@ function Home() {
         }
     };
 
+    const formatDate = (fullDate: string): string => {
+        const date = new Date(fullDate);
+
+        const day = date.getDate();
+        const month = date.toLocaleString("en-US", { month: "long" });
+        const year = date.getFullYear();
+
+        return `${day} - ${month} - ${year}`;
+    };
+
     const deleteTierList = async (tierlistId: number) => {
         try {
-            const response = await neonrank.delete(`/tierlists/${tierlistId}`);
+            await neonrank.delete(`/tierlists/${tierlistId}`);
         } catch (err) {
             console.error("Error deleting tier list: ", err);
         }
@@ -46,8 +57,11 @@ function Home() {
         setTitle(e.target.value);
     };
 
-    const handleCLick = () => {
-        createTierList();
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (title && title.length <= 40) {
+            createTierList();
+        }
     };
 
     const handleDelete = (tierlistId: number) => {
@@ -70,40 +84,54 @@ function Home() {
     }, [destination]);
 
     return (
-        <div>
-            <h1>Logo</h1>
-            {tierLists &&
-                tierLists.map((tierlist) => {
-                    return (
-                        <div key={tierlist.tierlist_id}>
-                            <Link to={`/${tierlist.tierlist_id}`}>
-                                <h2>{tierlist.title}</h2>
-                                <p>
-                                    <span>{tierlist.creation_date}</span>
-                                </p>
-                            </Link>
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    handleDelete(tierlist.tierlist_id)
-                                }
+        <div className={styles.pageContainer}>
+            <h1 className={styles.logo}>Neon Rank</h1>
+            <div className={styles.tierListsContainer}>
+                {tierLists &&
+                    tierLists.map((tierlist) => {
+                        return (
+                            <div
+                                key={tierlist.tierlist_id}
+                                className={styles.card}
                             >
-                                DEL
-                            </button>
-                        </div>
-                    );
-                })}
-            <div>
+                                <Link
+                                    to={`/${tierlist.tierlist_id}`}
+                                    className={styles.info}
+                                >
+                                    <h2 className={styles.title}>
+                                        {tierlist.title}
+                                    </h2>
+                                    <p>
+                                        <span className={styles.date}>
+                                            {formatDate(tierlist.creation_date)}
+                                        </span>
+                                    </p>
+                                </Link>
+                                <button
+                                    type="button"
+                                    className={styles.buttonDel}
+                                    onClick={() =>
+                                        handleDelete(tierlist.tierlist_id)
+                                    }
+                                >
+                                    <CloseIcon className={styles.closeIcon} />
+                                </button>
+                            </div>
+                        );
+                    })}
+            </div>
+            <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
                 <input
                     type="text"
                     placeholder="40 characters maximum"
+                    className={styles.input}
                     value={title}
                     onChange={handleChange}
                 />
-                <button type="button" onClick={handleCLick}>
-                    CREATE
+                <button type="submit" className={styles.buttonCreate}>
+                    ADD
                 </button>
-            </div>
+            </form>
         </div>
     );
 }

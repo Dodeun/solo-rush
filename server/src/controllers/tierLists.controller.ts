@@ -20,6 +20,7 @@ export const getAllTierLists: RequestHandler<undefined, TierList[]> = async (
 ) => {
     try {
         const tierLists: TierList[] = await findAllTierLists();
+        console.log(tierLists);
         res.status(200).json(tierLists);
     } catch (err) {
         next(err);

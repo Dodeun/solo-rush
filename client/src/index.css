@@ -1,6 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Dancing+Script:wght@400..700&family=Lobster&family=Monoton&family=Orbitron:wght@400..900&family=Pacifico&family=Parisienne&family=Press+Start+2P&family=Satisfy&display=swap");
+
+:root {
+    /* Font Families all lock to font-weight: 400 except orbitron*/
+    --ff-pacifico: "Pacifico", cursive;
+    --ff-lobster: "Lobster", sans-serif;
+    --ff-monoton: "Monoton", sans-serif;
+    --ff-satisfy: "Satisfy", cursive;
+    --ff-dancing-script: "Dancing script", cursive;
+    --ff-parisienne: "Parisienne", cursive;
+    --ff-press-start-2p: "Press Start 2P", system-ui;
+    --ff-audiowide: "Audiowide", sans-serif;
+    --ff-orbitron: "Orbitron", sans-serif;
+
+    /* Colors */
+    --neon-color-2: hsl(330, 100%, 50%);
+    --neon-color-2-dimed: hsl(330, 100%, 40%);
+    --neon-color-danger: hsl(0, 100%, 40%);
+    --neon-color-danger-dimed: hsl(0, 100%, 40%);
+    --neon-color-white: hsl(0, 0%, 69%);
+    --synth-electric-blue: #00ffff;
+    --synth-purple: #8a2be2;
+    --synth-deep-violet: #2d0036;
+    --synth-sunset-orange: #ff6b00;
+    --synth-neon-yellow: #f8ff00;
+    --synth-dark-magenta: #7f00ff;
+    --synth-cyan: #00bfff;
+
+    --neon-color-1: white;
+    --bg-dark: #020202;
+    --bg-dark-transparent: #020202d0;
+}
+
 html {
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 *,
@@ -28,7 +61,36 @@ ol {
     padding-left: 20px;
 }
 
-img {
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
     max-width: 100%;
-    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    text-align: inherit;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    color: inherit;
 }

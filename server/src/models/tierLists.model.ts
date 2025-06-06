@@ -10,7 +10,7 @@ import { NewListItem } from "../types/listItem";
 
 export async function findAllTierLists(): Promise<TierList[]> {
     const [rows] = await database.query<TierList[]>(
-        `SELECT tierlist_id, title FROM tierlist`
+        `SELECT tierlist_id, title, creation_date FROM tierlist`
     );
     return rows;
 }
