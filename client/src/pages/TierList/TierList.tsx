@@ -157,7 +157,7 @@ function TierList() {
                                         style={{ textShadow: textShadows }}
                                         className={styles.optionValue}
                                     >
-                                        {`${index} - `}
+                                        {`${index + 1} - `}
                                         {item.option_value}
                                     </div>
                                     <button
