@@ -53,7 +53,7 @@ export async function insertTierList({
         values.push(newTierListId);
     }
 
-    const [resultListItems] = await database.query<ResultSetHeader>(
+    await database.query<ResultSetHeader>(
         `INSERT INTO listitem (option_value, tierlist_id) VALUES ${connectingElement}`,
         values
     );
