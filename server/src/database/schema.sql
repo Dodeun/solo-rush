@@ -15,7 +15,7 @@ CREATE TABLE listitem (
     option_value VARCHAR(40) NOT NULL,
     tierlist_id INT UNSIGNED,
     FOREIGN KEY (tierlist_id) REFERENCES tierlist(tierlist_id) ON DELETE CASCADE
-)
+);
 
 -- Create Tier Lists
 INSERT INTO tierlist (title) VALUES 
