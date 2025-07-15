@@ -27,7 +27,7 @@ services:
             - api-db
 
     web:
-        image: dodeun/sr-frontend:v1.1
+        image: dodeun/sr-frontend:v1.2
         container_name: SR-Frontend
         restart: unless-stopped
         ports:
