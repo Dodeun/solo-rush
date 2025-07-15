@@ -4,14 +4,14 @@ import {
 	NewTierList,
 	RowTierList,
 	TierList,
-} from "../types/tierLists";
+} from "../types/tierLists.js";
 import {
 	deleteTierList,
 	findAllTierLists,
 	findTierListById,
 	insertTierList,
 	updateTierList,
-} from "../models/tierLists.model";
+} from "../models/tierLists.model.js";
 
 export const getAllTierLists: RequestHandler<undefined, TierList[]> = async (
 	req,

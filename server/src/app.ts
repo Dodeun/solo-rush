@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import tierListsRouter from "./routes/tierLists.routes";
-import { logErrors } from "./middlewares/logErrors";
+import tierListsRouter from "./routes/tierLists.routes.js";
+import { logErrors } from "./middlewares/logErrors.js";
 
 export const app = express();
 
