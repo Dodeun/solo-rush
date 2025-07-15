@@ -3,6 +3,7 @@ import { app } from "./app.js";
 
 // Get the port from the environment variables
 const port = process.env.APP_PORT;
+console.log("PORT:", port);
 
 // Start the server and listen on the specified port
 app.listen(port, () => {

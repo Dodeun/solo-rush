@@ -1,3 +1,4 @@
+name: solo-rush-dev
 services:
     db:
         image: mysql:8.0.42
@@ -23,6 +24,8 @@ services:
             - 3000:3000
         env_file:
             - server/.env
+        environment:
+            - NODE_ENV=development
         volumes:
             - /app/node_modules
         develop:

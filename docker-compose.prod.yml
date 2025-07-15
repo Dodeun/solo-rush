@@ -1,37 +1,37 @@
+name: solo-rush-prod
 services:
     db:
-        image: mysql:8.0.42
+        image: dodeun/sr-database:v1
         container_name: SR-Database
         restart: unless-stopped
         env_file:
-            - server/.env
+            - server/.env.prod
         volumes:
             - mysql_data:/var/lib/mysql
-            - ./server/src/database/schema.sql:/docker-entrypoint-initdb.d/init.sql
         networks:
             - api-db
 
     api:
         depends_on:
             - db
-        image: dodeun/sr-backend:v1
+        image: dodeun/sr-backend:v1.1
         container_name: SR-Backend
         restart: unless-stopped
         ports:
             - 3000:3000
         env_file:
-            - server/.env
+            - server/.env.prod
+        environment:
+            - NODE_ENV=production
         networks:
             - api-db
 
     web:
-        image: dodeun/sr-frontend:v1
+        image: dodeun/sr-frontend:v1.1
         container_name: SR-Frontend
         restart: unless-stopped
         ports:
             - 80:80
-        env_file:
-            - client/.env
 
 volumes:
     mysql_data:
