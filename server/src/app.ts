@@ -6,6 +6,7 @@ import { logErrors } from "./middlewares/logErrors";
 
 export const app = express();
 
+console.log(process.env);
 // Use cors to allow our client url (in env variables) to query our back
 if (process.env.CLIENT_URL != null) {
 	app.use(cors({ origin: process.env.CLIENT_URL }));
