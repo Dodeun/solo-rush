@@ -1,0 +1,68 @@
+name: solo-rush-dev
+services:
+    db:
+        image: mysql:8.0.42
+        container_name: SR-Database
+        restart: unless-stopped
+        env_file:
+            - server/.env
+        volumes:
+            - mysql_data:/var/lib/mysql
+            - ./server/src/database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - api-db
+
+    api:
+        depends_on:
+            - db
+        build:
+            context: ./server
+            target: dev
+        container_name: SR-Backend
+        restart: unless-stopped
+        ports:
+            - 3000:3000
+        env_file:
+            - server/.env
+        environment:
+            - NODE_ENV=development
+        volumes:
+            - /app/node_modules
+        develop:
+            watch:
+                - path: ./server/package.json
+                  action: rebuild
+                - path: ./server/package-lock.json
+                  action: rebuild
+                - path: ./server
+                  target: /app
+                  action: sync
+        networks:
+            - api-db
+
+    web:
+        build:
+            context: ./client
+            target: dev
+        container_name: SR-Frontend
+        restart: unless-stopped
+        ports:
+            - 5173:5173
+        env_file:
+            - client/.env
+        volumes:
+            - /app/node_modules
+        develop:
+            watch:
+                - path: ./client/package.json
+                  action: rebuild
+                - path: ./client/package-lock.json
+                  action: rebuild
+                - path: ./client
+                  target: /app
+                  action: sync
+
+volumes:
+    mysql_data:
+networks:
+    api-db:

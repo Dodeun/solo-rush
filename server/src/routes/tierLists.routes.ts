@@ -1,11 +1,11 @@
 import express from "express";
 import {
-    createTierList,
-    getAllTierLists,
-    getTierListById,
-    removeTierListById,
-    updateTierListById,
-} from "../controllers/tierLists.controller";
+	createTierList,
+	getAllTierLists,
+	getTierListById,
+	removeTierListById,
+	updateTierListById,
+} from "../controllers/tierLists.controller.js";
 
 const router = express.Router();
 
