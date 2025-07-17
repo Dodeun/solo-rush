@@ -1,17 +1,18 @@
-import "./App.css";
-import TopBar from "./components/TopBar/TopBar";
-import Footer from "./components/Footer/Footer";
+import styles from "./App.module.css";
 import { Outlet } from "react-router";
+import { AppProvider } from "./context/AppContext";
 
 function App() {
     return (
         <>
-            {/* si on a un context, il faudra mettre le provider là */}
-            <TopBar /> {/* les noms sont provisoires*/}
-            <main>
-                <Outlet />
-            </main>
-            <Footer />
+            <AppProvider>
+                <main className={styles.page}>
+                    <Outlet />
+                </main>
+                <div className={styles.container}>
+                    <div className={styles.background}></div>
+                </div>
+            </AppProvider>
         </>
     );
 }
