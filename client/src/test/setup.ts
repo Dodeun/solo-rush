@@ -10,7 +10,7 @@ expect.extend(matchers);
 // expect(element).toEqual(something)
 // expect(element).toBeTruthy()
 
-// With jest-dom matchers we can
+// With jest-dom matchers we can also
 // expect(element).toBeInTheDocument()
 // expect(element).toHaveClass('active')
 // expect(element).toBeVisible()
@@ -18,5 +18,5 @@ expect.extend(matchers);
 
 // Cleanup after each test
 afterEach(() => {
-    cleanup();
+	cleanup();
 });
