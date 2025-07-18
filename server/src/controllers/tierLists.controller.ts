@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { ParamsDictionary, RequestHandler } from "express-serve-static-core";
 import {
 	CompleteTierList,
 	NewTierList,
@@ -13,11 +13,10 @@ import {
 	updateTierList,
 } from "../models/tierLists.model.js";
 
-export const getAllTierLists: RequestHandler<undefined, TierList[]> = async (
-	req,
-	res,
-	next
-) => {
+export const getAllTierLists: RequestHandler<
+	ParamsDictionary,
+	TierList[]
+> = async (req, res, next) => {
 	try {
 		const tierLists: TierList[] = await findAllTierLists();
 		res.status(200).json(tierLists);
