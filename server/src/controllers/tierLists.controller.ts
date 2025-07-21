@@ -1,4 +1,8 @@
-import { ParamsDictionary, RequestHandler } from "express-serve-static-core";
+import {
+	NextFunction,
+	ParamsDictionary,
+	RequestHandler,
+} from "express-serve-static-core";
 import {
 	CompleteTierList,
 	NewTierList,
@@ -62,8 +66,9 @@ export const getTierListById: RequestHandler<
 };
 
 export const createTierList: RequestHandler<
-	NewTierList,
-	CompleteTierList | { error: string }
+	any,
+	CompleteTierList | { error: string },
+	NewTierList
 > = async (req, res, next) => {
 	const { title, listItems } = req.body;
 
