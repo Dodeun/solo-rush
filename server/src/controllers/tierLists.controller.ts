@@ -1,4 +1,8 @@
-import { RequestHandler } from "express";
+import {
+	NextFunction,
+	ParamsDictionary,
+	RequestHandler,
+} from "express-serve-static-core";
 import {
 	CompleteTierList,
 	NewTierList,
@@ -13,11 +17,10 @@ import {
 	updateTierList,
 } from "../models/tierLists.model.js";
 
-export const getAllTierLists: RequestHandler<undefined, TierList[]> = async (
-	req,
-	res,
-	next
-) => {
+export const getAllTierLists: RequestHandler<
+	ParamsDictionary,
+	TierList[]
+> = async (req, res, next) => {
 	try {
 		const tierLists: TierList[] = await findAllTierLists();
 		res.status(200).json(tierLists);
@@ -63,8 +66,9 @@ export const getTierListById: RequestHandler<
 };
 
 export const createTierList: RequestHandler<
-	NewTierList,
-	CompleteTierList | { error: string }
+	any,
+	CompleteTierList | { error: string },
+	NewTierList
 > = async (req, res, next) => {
 	const { title, listItems } = req.body;
 
